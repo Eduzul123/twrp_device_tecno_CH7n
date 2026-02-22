@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2025 The TWRP Open Source Project
+# Copyright (C) 2023 The TWRP Open Source Project
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -7,14 +7,22 @@
 LOCAL_PATH := device/tecno/CH7n
 
 # A/B
-AB_OTA_UPDATER := true
 AB_OTA_PARTITIONS += \
     boot \
     dtbo \
+    gz \
     lk \
+    logo \
+    md1img \
+    preloader \
     product \
+    scp \
+    spmfw \
+    sspm \
     system \
     system_ext \
+    tee \
+    vbmeta \
     vbmeta_system \
     vbmeta_vendor \
     vendor
@@ -33,7 +41,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
 # VNDK
-PRODUCT_TARGET_VNDK_VERSION := 31
+PRODUCT_TARGET_VNDK_VERSION := 30
 
 # API
 PRODUCT_SHIPPING_API_LEVEL := 30
@@ -41,15 +49,42 @@ PRODUCT_SHIPPING_API_LEVEL := 30
 # Health HAL
 PRODUCT_PACKAGES += \
     android.hardware.health@2.1-impl \
-    android.hardware.health@2.1-service
+    android.hardware.health@2.1-service \
+    libhealthd.$(PRODUCT_PLATFORM)
 
 # Boot Control HAL
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.2-mtkimpl.recovery \
-    android.hardware.boot@1.2-mtkimpl
+    android.hardware.boot@1.1-mtkimpl.recovery \
+    android.hardware.boot@1.1-mtkimpl
+
+#PRODUCT_PACKAGES_DEBUG += \
+    bootctrl
+
+#PRODUCT_PACKAGES += \
+    bootctrl.mt6781 \
+    bootctrl.mt6781.recovery
 
 # Fastbootd
 PRODUCT_PACKAGES += \
-    android.hardware.fastboot@1.0-impl-mtk \
+    android.hardware.fastboot@1.0-impl-mock \
     fastbootd
+
+#PRODUCT_PACKAGES_DEBUG += \
+   update_engine_client
+
+#PRODUCT_PACKAGES += \
+    otapreopt_script \
+    cppreopts.sh \
+    update_engine \
+    update_verifier \
+    update_engine_sideload
+	
+# Recovery modules
+TARGET_RECOVERY_DEVICE_MODULES += \
+    libkeymaster4 \
+    libpuresoftkeymasterdevice
+
+#RECOVERY_LIBRARY_SOURCE_FILES += \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster4.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libpuresoftkeymasterdevice.so
 

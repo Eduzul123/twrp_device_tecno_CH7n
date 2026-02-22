@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2025 The TWRP Open Source Project
+# Copyright (C) 2023 The TWRP Open Source Project
 # 
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -40,6 +40,9 @@ TARGET_USES_UEFI := true
 TARGET_BOARD_PLATFORM := mt6781
 PRODUCT_PLATFORM := mt6781
 
+# A/B
+AB_OTA_UPDATER := true
+
 # Kernel
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
@@ -49,7 +52,6 @@ BOARD_KERNEL_BASE := 0x40078000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_RAMDISK_OFFSET := 0x07c08000
 BOARD_KERNEL_TAGS_OFFSET := 0x0bc08000
-BOARD_MKBOOTIMG_ARGS += --board "CY-CH7N-H812-D"
 BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
@@ -107,8 +109,17 @@ BOARD_USES_METADATA_PARTITION := true
 TW_INCLUDE_FBE_METADATA_DECRYPT := true
 TW_USE_FSCRYPT_POLICY := 2
 
+# Recovery modules
+TARGET_RECOVERY_DEVICE_MODULES += \
+    libkeymaster4 \
+    libpuresoftkeymasterdevice
+
 # Metadata root folder
 BOARD_ROOT_EXTRA_FOLDERS += metadata
+
+RECOVERY_LIBRARY_SOURCE_FILES += \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster4.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libpuresoftkeymasterdevice.so
 
 # Properties
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
@@ -137,25 +148,29 @@ TARGET_USES_MKE2FS := true
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_DEFAULT_BRIGHTNESS := 1200
 TW_MAX_BRIGHTNESS := 2047
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.usb0/lun.%d/file
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_EXCLUDE_APEX := true
 TW_EXCLUDE_PYTHON := true
 TW_EXCLUDE_NANO := true
-TW_EXCLUDE_BASH := true
 TW_EXCLUDE_TWRPAPP := true
-TW_USB_STORAGE := true
-TW_EXCLUDE_TZDATA := true
-TW_EXTRA_LANGUAGES := false
+TW_EXTRA_LANGUAGES := true
 TW_INCLUDE_NTFS_3G := true
 TW_NO_SCREEN_BLANK := true
 TW_INCLUDE_RESETPROP := true
 TW_INCLUDE_REPACKTOOLS := true
 TW_USE_TOOLBOX := true
-TW_BACKUP_EXCLUSIONS := /data/fonts/files
+TW_INCLUDE_FASTBOOTD := true
+TW_BACKUP_EXCLUSIONS := /data/fonts
+TW_HAS_MTP := true
 
 # Recovery framerate
 TW_FRAMERATE := 60
+
+# Hide notch for orangefox
+ifneq ($(OF_HIDE_NOTCH),1)
+    TW_Y_OFFSET  := 100 
+    TW_H_OFFSET  := -100
+endif
 
 # Recovery fstab
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
