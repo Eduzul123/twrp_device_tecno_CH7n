@@ -1,0 +1,6 @@
+# Start Daemon
+service mobicore /vendor/bin/mcDriverDaemon --sfs-reformat --P1 /mnt/vendor/persist/mcRegistry
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
