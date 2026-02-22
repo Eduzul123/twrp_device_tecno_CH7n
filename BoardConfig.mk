@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2026 The TWRP Open Source Project
+# Copyright (C) 2025 The TWRP Open Source Project
 # 
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -144,24 +144,18 @@ TW_EXCLUDE_PYTHON := true
 TW_EXCLUDE_NANO := true
 TW_EXCLUDE_BASH := true
 TW_EXCLUDE_TWRPAPP := true
+TW_USB_STORAGE := true
 TW_EXCLUDE_TZDATA := true
-TW_EXTRA_LANGUAGES := true
+TW_EXTRA_LANGUAGES := false
 TW_INCLUDE_NTFS_3G := true
 TW_NO_SCREEN_BLANK := true
 TW_INCLUDE_RESETPROP := true
 TW_INCLUDE_REPACKTOOLS := true
 TW_USE_TOOLBOX := true
 TW_BACKUP_EXCLUSIONS := /data/fonts/files
-TW_NO_USB_STORAGE := true
 
 # Recovery framerate
 TW_FRAMERATE := 60
-
-# Hide notch for orangefox
-ifneq ($(OF_HIDE_NOTCH),1)
-    TW_Y_OFFSET  := 100 
-    TW_H_OFFSET  := -100
-endif
 
 # Recovery fstab
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
