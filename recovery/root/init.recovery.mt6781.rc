@@ -30,6 +30,12 @@ on post-fs
 
 on fs
     install_keyring
+
+# Fix flashlight on orangefox
+on property:ro.orangefox.boot=1
+    mkdir /tmp/flashlight
+    write /tmp/flashlight/max_brightness "2"
+    symlink /sys/devices/virtual/torch/torch/torch_level /tmp/flashlight/brightness
     
 service mtk.plpath.utils.link /system/bin/mtk_plpath_utils
     class main

@@ -63,7 +63,7 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 	
 	# flashlight
 	export OF_FLASHLIGHT_ENABLE=1
-	export OF_FL_PATH1="/system/flashlight"
+	export OF_FL_PATH1="/tmp/flashlight"
   
 	# R11
 	export FOX_VARIANT=Stable
