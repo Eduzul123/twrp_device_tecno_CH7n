@@ -7,10 +7,10 @@
 /vendor         ext4    /dev/block/mapper/vendor                 flags=backup=0;removable;slotselect
 /product        ext4    /dev/block/mapper/product                flags=backup=0;removable;slotselect
 
-/system_img     emmc    /dev/block/mapper/system                 flags=display="System Image";backup=1;flashimg;slotselect
-/system_ext_img emmc    /dev/block/mapper/system_ext             flags=display="System_ext Image";backup=1;flashimg;slotselect
-/vendor_img     emmc    /dev/block/mapper/vendor                 flags=display="Vendor Image";backup=1;flashimg;slotselect
-/product_img    emmc    /dev/block/mapper/product                flags=display="Product Image";backup=1;flashimg;slotselect 
+/system_image     emmc    /dev/block/mapper/system                 flags=display="System Image";backup=1;flashimg;slotselect
+/system_ext_image emmc    /dev/block/mapper/system_ext             flags=display="System_ext Image";backup=1;flashimg;slotselect
+/vendor_image     emmc    /dev/block/mapper/vendor                 flags=display="Vendor Image";backup=1;flashimg;slotselect
+/product_image    emmc    /dev/block/mapper/product                flags=display="Product Image";backup=1;flashimg;slotselect 
 
 # VBMeta partitions
 /vbmeta         emmc    /dev/block/by-name/vbmeta                flags=display="vbmeta";backup=1;flashimg=1;slotselect
